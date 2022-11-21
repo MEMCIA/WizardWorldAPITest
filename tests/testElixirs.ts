@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import 'mocha';
 import { Response } from 'superagent';
-import {Elixirs} from '../pages/elixirs'
+import {Elixirs} from '../elixirs'
 
 chai.use(chaiHttp);
 const expect = chai.expect;

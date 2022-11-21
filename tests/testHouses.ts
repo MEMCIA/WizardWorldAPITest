@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import 'mocha';
 import { Response } from 'superagent';
-import {Houses} from '../pages/houses'
+import {getHousesNameInHPSorted, getHousesAmountInHP} from '../houses'
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -12,14 +12,12 @@ var _ = require('lodash');
   {
     var response: Response;
     var responseJSON;
-    var houses:Houses;
 
     before(async function()
     {
       response = await chai.request('https://wizard-world-api.herokuapp.com')
           .get('/Houses');
       responseJSON = JSON.parse(response.text);
-      houses = new Houses();
     })
 
     it("status should be 200", function()
@@ -29,12 +27,12 @@ var _ = require('lodash');
 
     it("response should contains four elements", function()
     {
-        expect(responseJSON.length).to.equal(houses.getHousesNumberInHP());
+        expect(responseJSON.length).to.equal(getHousesAmountInHP());
     })
 
     it("names of houses in responses are correct", function()
     {
-      const nameOfHousesInHPAlphabetically = houses.getHousesNameInHPSorted();
+      const nameOfHousesInHPAlphabetically = getHousesNameInHPSorted();
       const housesInResponse = [];
       responseJSON.forEach((element)=> housesInResponse.push(element.name));
       housesInResponse.sort();
